@@ -399,7 +399,7 @@ function joinRoom(room_id){ if(!authToken) return alert("login first"); fetch("/
 
 function openWS(room_id){
  if(ws){ try{ ws.close(); }catch{} ws=null; }
- ws = new WebSocket("ws://"+location.host+"/ws/"+room_id+"/"+encodeURIComponent(authToken));
+ ws = new WebSocket("wss://"+location.host+"/ws/"+room_id+"/"+encodeURIComponent(authToken));
  ws.onopen = ()=> appendChat("Connected to room "+room_id);
  ws.onmessage = (e)=> {
    let msg = JSON.parse(e.data);
@@ -637,3 +637,4 @@ if __name__ == "__main__":
     print("GPT Chess (single-file) starting on http://localhost:8000")
     print("This uses Lichess cloud-eval for AI moves (no API key). For heavy use run local Stockfish instead.")
     uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
+
